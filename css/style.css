@@ -23,8 +23,12 @@ path {
 	position: absolute;
 	float: left;
 }
-#menu { 
+.row .menu { 
 	left: 80%;
+	top: 10%;
+}
+.menu select {
+	height: 100%;
 }
 .clintonh.display { 
 	fill: blue;
