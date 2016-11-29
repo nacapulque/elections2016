@@ -25,57 +25,32 @@
 	<div class="row">
 		<div id="map_container">
 			<div data-chart="map" id="counties" data-map_center_lat="39.833333" data-map_center_lon="-98.583333" data-zoom_level="800"></div>
+			<div data-chart="lines" id="bubbles"></div>
 		</div>
 		<div class="menu">
 			<form data-change="#reset_map,#parse_active">
-				<a id="reset_map" data-control_element="path.county" data-element_remove_class="display" data-debug="resetting map"></a>
+				<a id="reset_map" data-control_element=".county" data-element_remove_class="display" data-parse="#hide_labels"></a>
+				<a id="hide_labels" data-control_element=".labelcont" data-element_remove_class="display"></a>
 				<a id="parse_active" data-parse="#control option:checked"></a>
-				<select id="control" multiple size=30>
-					
-				</select>
-				<!--
-				<select data-control>
-					<option> -- pick a filter -- </option>
-					<optgroup label="">
-						
-					</optgroup>
-					<optgroup label="Hispanic or latinos">
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_5" data-element_add_class="display">hispanic or latino counties (fifth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_4" data-element_add_class="display">hispanic or latino counties (fourth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_3" data-element_add_class="display">hispanic or latino counties (third quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_2" data-element_add_class="display">hispanic or latino counties (second quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_1" data-element_add_class="display">hispanic or latino counties (first quintile)</option>
-					</optgroup>
-					<optgroup label="Mexican counties">
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_mexican_5" data-element_add_class="display">mexican counties (fifth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_mexican_4" data-element_add_class="display">mexican counties (fourth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_mexican_3" data-element_add_class="display">mexican counties (third quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_mexican_2" data-element_add_class="display">mexican counties (second quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_mexican_1" data-element_add_class="display">mexican counties (first quintile)</option>
-					</optgroup>
-					<optgroup label="Puerto Rican counties">
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_puerto_rican_5" data-element_add_class="display">puerto rican counties (fifth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_puerto_rican_4" data-element_add_class="display">puerto_rican counties (fourth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_puerto_rican_3" data-element_add_class="display">puerto_rican counties (third quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_puerto_rican_2" data-element_add_class="display">puerto_rican counties (second quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_puerto_rican_1" data-element_add_class="display">puerto_rican counties (first quintile)</option>
-					</optgroup>
-					<optgroup label="Cuban counties">
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_cuban_5" data-element_add_class="display">cuban counties (fifth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_cuban_4" data-element_add_class="display">cuban counties (fourth quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_cuban_3" data-element_add_class="display">cuban counties (third quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_cuban_2" data-element_add_class="display">cuban counties (second quintile)</option>
-						<option data-parse_first="#reset_map" data-control_element="path.county.total_hispanic_or_latino_cuban_1" data-element_add_class="display">cuban counties (first quintile)</option>
-					</optgroup>
-				</select>
-				-->
+				<select id="control" multiple size=30></select>
 			</form>
+			<table id="labels">
+				<tr>
+					<th class="label_county" colspan="2"></th>
+				</tr>
+				<tr><th>Population:</th><td class="label_total"></td></tr>
+				<tr><th>Votes:</th><td class="label_votes"></td></tr>
+				<tr><th>Trump D.:</th><td class="label_trumpd"></td></tr>
+				<tr><th>Clinton H.:</th><td class="label_clintonh"></td></tr>
+				<tr><th>Other:</th><td class="label_other"></td></tr>
+			</table>
 		</div>
 	</div>
 	<a id="zoom_usa" data-control_chart="counties" data-zoom_to=".counties > path"></a>
 	<a id="redraw_counties" data-control_chart="counties" data-add_layer="counties" data-layer_key="stdin" data-parse="#zoom_usa"></a>
 	<a id="download_counties" data-onload data-download="data/counties.json" data-download_id="counties" data-type="json" data-download_parse_sequence="#redraw_counties,#download_data"></a>
 	<a id="download_data" data-download="data/counties_data.csv" data-download_id="data" data-download_parse_sequence="#quantify_counties" data-debug="Downloading DAta"></a>
-	<a id="quantify_counties" data-control_chart="counties" data-quantify="counties" data-quantifier="counties" data-debug="Here I am""></a>
+	<a id="quantify_counties" data-control_chart="counties" data-quantify="counties" data-quantifier="counties" data-parse="#quantify_bubbles"></a>
+	<a id="quantify_bubbles" data-control_chart="bubbles" data-quantify="data" data-quantifier="bubbles"></a>
 </body>
 </html>
